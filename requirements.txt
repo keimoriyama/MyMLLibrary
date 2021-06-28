@@ -1,0 +1,6 @@
+pandas==1.2.5
+numpy==1.21.0
+mlflow==1.18.0
+tqdm==4.61.1
+torch==1.8.0
+setuptools==57.0.0
