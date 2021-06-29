@@ -1,6 +1,7 @@
 import numpy as np
 from tqdm import tqdm
 import time
+import os
 
 import torch
 
@@ -16,3 +17,15 @@ def get_elapsed_time(start, end):
     if t >= 0:
         s = t
     return [h, m, s]
+
+def get_env():
+    env = ""
+    os_env = set(os.environ.keys())
+    if 'COLAB_GPU' in os_env:
+        env = 'colab'
+    elif 'KAGGLE_URL_BASE' in os_env:
+        env = 'kaggle'
+    else:
+        env = 'local'
+
+    return env
