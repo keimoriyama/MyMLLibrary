@@ -6,26 +6,29 @@ from torch.utils.data.dataset import Subset
 
 from sklearn.model_selection import train_test_split, KFold
 
+import numpy as np
+
 
 # これを継承していろいろなデータに対応したデータセットクラスを作っていきたい
 class template_dataset(Dataset):
-
-    def __init__(self, data=None, label=None):
+    def __init__(self,
+                 data: np.ndarray = None,
+                 label: np.ndarray = None) -> None:
         if data is None:
             raise ValueError("data is empty")
-        if label is None:
-            raise ValueError('label is empty')
         self.data = data
         self.label = label
-    
-    def __len__(self):
-        return len(self.data)
+
+    def __len__(self) -> int:
+        return self.data.shape[-1]
 
 
 class image_dataset(template_dataset):
-    
-    def __init__(self, data, label, transform = None):
-        super().__init__(data,label)
+    def __init__(self,
+                 data: np.ndarray = None,
+                 label: np.ndarray = None,
+                 transform=None):
+        super().__init__(data, label)
         if transform is not None:
             self.transform = transform
 
