@@ -20,3 +20,19 @@ class template_dataset(Dataset):
     
     def __len__(self):
         return len(self.data)
+
+
+class image_dataset(template_dataset):
+    
+    def __init__(self, data, label, transform = None):
+        super().__init__(data,label)
+        if transform is not None:
+            self.transform = transform
+
+    def __getitem__(self, index):
+        image = self.data[index]
+        label = self.label[index]
+        if self.transform:
+            image = self.transform(image)
+
+        return image, label
