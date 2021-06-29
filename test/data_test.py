@@ -21,8 +21,10 @@ class TestDatasets(unittest.TestCase):
         print("test of dataset length")
         self.assertEqual(num_image, len(dataset))
 
-    def Test_errorcase(self):
-        dataset = image_dataset(data)
+    def test_error(self):
+        print('test of empty dataset')
+        with self.assertRaises(ValueError):
+            dataset = image_dataset(label=labels)
 
 
 if __name__ == '__main__':
