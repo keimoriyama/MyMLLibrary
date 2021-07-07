@@ -24,18 +24,29 @@ class template_dataset(Dataset):
 
 
 class image_dataset(template_dataset):
+    """
+    expected input:
+    size of data: (image_size, image_size, total_image_num)
+    size of label: (total_image_num)
+    """
     def __init__(self,
                  data: np.ndarray = None,
                  label: np.ndarray = None,
                  transform=None):
+        if data.ndim < 3:
+            raise ValueError(
+                f"dimention of image data is expected 3 but got {data.ndim}")
         super().__init__(data, label)
-        if transform is not None:
-            self.transform = transform
+        self.transform = transform
 
     def __getitem__(self, index):
-        image = self.data[index]
-        label = self.label[index]
+        image = self.data[:, :, index]
+        if self.label is not None:
+            label = self.label[index]
+            label = torch.tensor(label, dtype=torch.long).unsqueeze(0)
         if self.transform:
             image = self.transform(image)
-
-        return image, label
+        if self.label is not None:
+            return image, label
+        else:
+            return image
