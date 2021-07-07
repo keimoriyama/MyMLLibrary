@@ -14,8 +14,6 @@ class template_dataset(Dataset):
     def __init__(self,
                  data: np.ndarray = None,
                  label: np.ndarray = None) -> None:
-        if data is None:
-            raise ValueError("data is empty")
         self.data = data
         self.label = label
 

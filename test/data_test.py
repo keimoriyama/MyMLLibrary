@@ -29,9 +29,10 @@ class TestDatasets(unittest.TestCase):
         self.assertEqual(image_label.size(0), 1)
 
     def test_error(self):
-        print('test of empty dataset')
+        print('test of dataset which size is not enough')
+        dummy = np.random.rand(image_size, image_size)
         with self.assertRaises(ValueError):
-            dataset = image_dataset(label=label)
+            dataset = image_dataset(data=dummy, label=label)
 
     def test_empty_labels(self):
         dataset = image_dataset(data)
